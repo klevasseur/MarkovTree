@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!-- MBX --> 
+<pretext>
+
+<docinfo> <macros> \newcommand{\doubler}[1]{2#1} </macros> </docinfo> 
+<article xml:id="passthebuck"> 
+<title>Markov Chains on a Tree</title>
+
+<frontmatter>
+
+<titlepage>
+ <author>
+                    <personname>Kenneth Levasseur</personname>
+                    <department>Department of Mathematics and Statistics</department>
+                    <institution>
+                        <line>University of Massachusetts Lowell</line>
+                        <line>Lowell, Massachusetts, USA</line>
+                    </institution>
+                    <email>kenneth_levasseur@uml.edu</email>
+                </author>
+<date><today /></date>
+
+ </titlepage>
+
+<abstract> <p> The Stochastic Abacus can employed to used to compute absorbing probabilities for a Markov Chain on a tree.  For all but the simplest cases, the abacus can't really be implemented due to the large number of steps needed for completion.  In this paper, a technique for anticipating the outcome is introduced.</p> </abstract>
+
+</frontmatter>
+
+<introduction><title>Introduction</title>
+<p>In the 1970's, Engel <xref ref="biblio-engel"/> devised the Stochastic Abacus as a way to compute probabilities for certain discrete probability problems with minimal numerical computation.  More recently, Torrence <xref ref="biblio-torrence"/> used the same technique to determine winning probabilities for players in the game <q>Pass the Buck</q> for a variety of families of graphs.  The Stochastic Abacus has found more widespread exposure due to a recent article by Propp <xref ref="biblio-propp"/> in Math Horizons. In Levasseur <xref ref="biblio-levasseur"/> this game was analyzed on a tree, with a recursive construction that efficiently produced the winning probabilities. . In this note, we use similar logic to describe how a absorbing probabilities on a finite Markov chain with rational transition $probs can be derived with a generalization of the method used in <xref ref="biblio-levasseur"/>. One such example is play of a tennis game that has reached Deuce. <xref ref="fig-tennis-1"  text="type-global"/>. 
+</p>
+
+ <figure xml:id="fig-tennis-1">
+		 <caption>Tennis at Deuce as a Markov Chain
+		 </caption>
+		 <image width="60%" source="images/fig-tennis-1.png">
+			  <description></description>
+		 </image>
+</figure>
+
+
+ </introduction>
+
+<section xml:id="section-scope"> <title>Scope</title> 
+<p>XXXXXX</p>
+ </section> 
+
+<section xml:id="section-stochastic-abacus"> <title>The Stochastic Abacus</title>
+
+<p>Engle's Stochastic Abacus is a chip firing algorithm that, when complete, allows computation of absorbing probabilities in a Markov Chain. Chip firing algorithms take place on a directed graph with vertices that contain variable numbers of chips (or coins or M &amp; M's). The chips move around by the process of chip firing.  This can happen if a vertex contains enough chips to distribute along all of it's outgoing edges. What makes the algorithm work is that these firings mimic random events. In the case of pass the buck, if a vertex has enough chips for it's neighbor and itself, giving one to each neighbor and keeping one for itself captures all possible outcomes when the <q>buck</q> happens to be held by that vertex.  In the course of the whole stochatic abacus algorithm, the number of firings at any vertex is proportional to the number of times we expect that vertex to have an opportunity to win the game.  We will illustrate how the algorthm is set up and executed for the rooted tree in <xref ref="fig-binary-1"  text="type-global"/>.</p>
+
+<p> A Markov chain is a type random process the passes in discrete time between a finite number of states.  What make the process a Markov chain is that at any time, the probabilities that the process is in a state in the next time only depends on the current state. As an example,suppose that a tennis game has reached a point where both players have won three points.   The game continues until one of the players is ahead by two points. There are five states in the process/game at this point. The terminology used in tennis for the states follows.  In any game, one of the players hits the ball first and is referred to as the server, and the other player is the receiver.  </p>
+<dl>
+           <li>
+             <title>Deuce</title>
+             <p>
+               The state in which two players are tied with at least three points each.
+             </p>
+           </li>
+           <li>
+             <title>Ad-In</title>
+             <p>
+               The state where the server is ahead by one point, having won a point while the game is in Deuce.
+             </p>
+           </li>
+           <li>
+             <title>Ad-Out</title>
+             <p>
+            The state where the receiver is ahead by one point, having won a point while the game is in Deuce.
+             </p>
+           </li>
+           <li>
+             <title>Hold</title>
+             <p>
+               The state where the server is ahead by two points and the game is over.  
+             </p>
+           </li>
+           <li>
+             <title>Break</title>
+             <p>
+               The state where the receiver is ahead by two points and the game is over.
+             </p>
+           </li>
+         </dl>
+<p>Many Markov chains, including this one, has one or more states that essentially stops movement and the process essentially ends.   These states are called <em>absorbing states</em>.   Hold and Break are absorbing states for the tennis example.</p>        
+<p>Strictly speaking, a real tennis game isn't a Markov chain because players' memories of previous points could affect their play, but the Markov chain assumption is a reasonable approximation of reality.  In what follows, we will assume that for any point, the probability that the server wins the point is 0.6.  We can visualize the process with a transition graph, where the labels on each edge indicate the probability of movement to the terminal vertex from the initial vertex of the edge.
+</p>
+		<figure xml:id="fig-tennis">
+			 <caption>The transition graph for a tennis game that reaches Deuce.</caption>
+			 <image width="90%" source="images/fig-tennis.png">
+				  <description><p>A graph with five vertices, one for each possible state on a tennis game that has reached Deuce.</p></description>
+			 </image>
+		</figure>
+<p>We might wonder as to the likelihood that the server wins a game under these assumptions if the game has reached the Deuce state.  In a later chapter, we will introduce matrix methods for doing this computation. 
+</p>
+
+ <figure xml:id="fig-tennis-1">
+		 <caption>Stochatic Abacus for Tennis at Deuce
+		 </caption>
+		 <image width="60%" source="images/fig-tennis-2.png">
+			  <description></description>
+		 </image>
+</figure>
+
+<p>The abacus for tennis at duece is constructed by first converting the graph on which it is played from an undirected graph to a directed graph, where each undirected edge is replace with a pair of directed edges, one in each direction. The vertices of the original graph are referred to as the  <q>internal vertices.</q>  Then we add <q>absorbing vertices</q> to the graph, one for each internal vertex, and an edge leading into each absorbing vertex from its corresponding internal vertex, as in <xref ref="fig-abacus-1"  text="type-global"/>. For this example we use the notation <m>v_x</m> for an internal vertex and <m>t_x</m> for its corresponding absorbing vertex.  The absorbing vertex attached to its internal vertex are so called because they capture (or absorb) chips in the process of chip firing that we discuss below. </p> 
+
+<p>Now that we have the graph for the abacus constructed, we distribute chips to each internal vertex.  These internal vertices, which correspond to the vertices of the original game graph, each get as many chips as one less than the outdegree of the vertex in the abacus. In <xref ref="fig-abacus-1"  text="type-global"/>, the number of chips each vertex is given is indicated inside the vertex.  Initially, the absorbing vertices get no chips.  The starting location of the <q>buck</q> in Pass the Buck  is the starting vertex of the algorithm. In all of our examples, the starting vertex is the root of the tree.  At this point in the algorithm,  we say that the system is <q>critically loaded.</q> The algorithm then consists of repeatedly adding a chip to the start vertex, <m>v_{\text{root}}</m>, and then repeatedly <q>firing</q> chips whenever the number of chips in an internal vertex is greater than or equal to the outdegree of that vertex. Firing at a vertex involves distributing a chip along each outgoing edge of the <q>loaded vertex</q> to neighboring vertices, including it's own absorbing vertex.   When no more firing can take place we examine the contents of the internal vertices.  If the chip counts in all internal vertices match the critical loading condition, we end the algorithm. Otherwise repeat the process, adding a single chip to the starting vertex.</p>
+ 
+<figure xml:id="fig-abacus-1">
+		 <caption>The Stochastic Abacus for tennis at deuce. Vertices labeled <m>t_i</m>'s are internal vertices, absorbing vertices are <m>a_i</m>'s.
+		 </caption>
+		 <image width="60%" source="images/abacus-1.png">
+			  <description>caption>The Stochastic Abacus for tennis at deuce. Vertices labeled <m>t_i</m>'s are internal vertices, absorbing vertices are <m>a_i</m>'s. </description>
+		 </image>
+</figure>
+
+<p>The remarkable fact is that after we have returned to the original critical loading of internal vertices, the probability that any vertex wins the game is equal to the number of chips in its corresponding absorbing vertex divided by the total number of chips in all absorbing vertices. The way to see why this is plausible is to consider that the process of firing chips at a vertex simultaneously  simulates all the possibilities in the game when the buck reaches that vertex. Moving a chip to the absorbing vertex captures the situation where that vertex keeps the buck, while the chips that move to adjacent internal vertices capture the situations where the buck is passed to those vertices. The number of times any vertex has an opportunity to fire is proportional to its probability of winning the buck. See Snell <xref ref="biblio-snell"/> for a complete proof. </p>
+<p> Here is a step by step account of how the process plays out in our example, with the numbers in each vertex's column being the number of chips it holds. </p>
+
+<table>
+  <title>Steps in performing the stochatic abacus on a complete binary tree to level 1.</title>
+  <tabular halign="center">
+    <row header="yes" bottom="minor" >
+      <cell>Step </cell>
+      <cell>Comment</cell>
+      <cell><m>v_{\textrm{root}} </m></cell>
+      <cell><m>v_L</m></cell>
+      <cell><m>v_R</m></cell>
+      <cell><m>t_{\textrm{root}}</m></cell>
+      <cell><m>t_L</m></cell>
+      <cell><m>t_R</m></cell>
+    </row>
+    <row>
+      <cell>1</cell>
+      <cell>Critically loaded</cell>
+      <cell>2</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>0</cell>
+      <cell>0</cell>
+      <cell>0</cell>
+    </row>
+    <row>
+      <cell>2</cell>
+      <cell>Add 1 chip to <m>v_{\textrm{root}}</m></cell>
+      <cell>3</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>0</cell>
+      <cell>0</cell>
+      <cell>0</cell>
+    </row>
+    <row>
+      <cell>3</cell>
+      <cell><m>v_{\textrm{root}}</m> fires</cell>
+      <cell>0</cell>
+      <cell>2</cell>
+      <cell>2</cell>
+      <cell>1</cell>
+      <cell>0</cell>
+      <cell>0</cell>
+    </row>
+    <row>
+      <cell>4</cell>
+      <cell><m>v_L</m> fires</cell>
+      <cell>1</cell>
+      <cell>0</cell>
+      <cell>2</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>0</cell>
+    </row>
+    <row>
+      <cell>4</cell>
+      <cell><m>v_L</m> fires</cell>
+      <cell>1</cell>
+      <cell>0</cell>
+      <cell>2</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>0</cell>
+    </row>
+    <row>
+      <cell>5</cell>
+      <cell><m>v_R</m> fires</cell>
+      <cell>2</cell>
+      <cell>0</cell>
+      <cell>0</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>6</cell>
+      <cell>Add 1 chip to <m>v_{\textrm{root}}</m></cell>
+      <cell>3</cell>
+      <cell>0</cell>
+      <cell>0</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>7</cell>
+      <cell><m>v_{\textrm{root}}</m> fires</cell>
+      <cell>0</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>2</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>8</cell>
+      <cell>Add 1 chip to <m>v_{\textrm{root}}</m></cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>2</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>9</cell>
+      <cell>Add 1 chip to <m>v_{\textrm{root}}</m></cell>
+      <cell>2</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+      <cell>2</cell>
+      <cell>1</cell>
+      <cell>1</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>Notice that after step 8, the added chip at the root still doesn't allow for any firing.  The algorithm dictates that we test for critical loading, which is not met at this point.  However, adding yet another chip at the root in step 9 completes the algorithm.</p>
+
+
+
+<p>It may not be obvious, but if two vertices can fire, as before steps 4 and 5, it doesn't matter in what order they are fired. See  Bj&#246;ner <xref ref="biblio-bjoner"/> for a proof.  After step 9, the three internal vertices are back to being critically loaded, and the process ends.  We can now determine the win probabilities for each vertex. It is the number of chips in it's corresponding absorbing vertex divided by the total number of chips in all absorbing vertices.  For this example, the total number of chips in the absorbing vertices is 4 and the root has 2, so its probability of winning is <m>\frac{1}{2}</m>; and other two vertices each have winning probability <m>\frac{1}{4}</m>. </p>
+
+
+<p>The final outcome of the abacus for the tree in <xref ref="fig-rooted-random"  text="type-global"/>  is shown in the augmented directed graph, <xref ref="fig-abacus-random-tree"  text="type-global"/>.  The gray circular vertices are the  internal vertices, with the top vertex being the root. These vertices are labeled with the number of chips that are initially loaded into each vertex to satisfy the critical loading condition.  The square white vertices are the absorbing vertices, one for each vertex in the tree.  A total of 212 chips were added to the abacus after its initial critical loading, at which point the critial loading levels have been reached once more. This means that the root, whose chip count in its absorbing vertex is 91, has win probability <m>\frac{91}{212}</m>.</p>
+
+<figure xml:id="fig-abacus-random-tree">
+		 <caption>Final outcome of the abacus on the random rooted tree
+		 </caption>
+		 <image width="60%" source="images/fig-abacus-random-tree.png">
+			  <description>Final outcome of the abacus on the random rooted tree</description>
+		 </image>
+</figure>
+
+
+<p>A tree of this size is just about on the border of the sizes for which the abacus can be reasonably completed manually. There are programs that can implement the abacus -  this is how the outcome above was actually computed - but they are limited. Relatively simple trees require thousands of steps with this approach. For example, the stochastic abacus deposits nearly 28 million chips into the absorbing vertex of the root of the tree in <xref ref="fig-larger-tree"/>. This number will be defined below as the restoration number of the rooted tree.</p>
+
+<figure xml:id="fig-larger-tree">
+		 <caption>A slightly larger tree with high restoration number
+		 </caption>
+		 <image width="60%" source="images/fig-larger-tree.png">
+			  <description>A slightly larger tree with high restoration number</description>
+		 </image>
+</figure>
+
+
+ </section>
+
+<section xml:id="s-direct-computation">
+<title>Direct Computation of the Abacus</title> 
+<p>Next we describe how results can be computed much more easily. 
+The rooted tree with root <m>r</m> and subtrees <m>T_1</m>, <m>T_2</m>, ... <m>T_m</m> is denoted <m>\text{RootedTree}\left(r;T_1, T_2, \ldots ,T_m\right)</m>. </p>
+<definition><title>Restoration Number</title>
+<statement><p>The restoration number of a rooted tree is the number of times the root needs to fire to return the
+stochastic abacus to its critical loading position, denoted <m>R(T)</m>.</p></statement>
+</definition>
+<p>The restoration number is also the number of chips in the root's absorbing vertex upon return to critical loading.  The restoration number of the tree depicted in the abacus in <xref ref="fig-abacus-random-tree"  text="type-global"/> is 91.</p>
+<definition><title>Restoration Function</title>
+<statement><p>The restoration function of a rooted tree <m>T</m> is the function <m>R_T</m> on the vertex set of the tree
+such that <m>R_T(v)</m> is the number of chips in <m>v</m>'s absorbing vertex upon return to critical loading.</p></statement>
+</definition>
+<p>Note: The probability that vertex <m>v</m> wins Pass the Buck on a rooted tree <m>T</m> is <me>\frac{R_T(v)}{\sum _{w\in V_T} R_T(w)}.</me></p>
+
+<definition><title>Period of a Rooted Tree</title>
+<statement><p>The Period of a rooted tree, <m>T</m>, is the restoration number of the rooted tree having <m>T</m> as it's only subtree. The period of a tree <m>T</m> is denoted <m>P(T)</m>. </p></statement></definition>
+
+<p>Note: If <m>T'= \text{RootedTree}(v;T)</m>, then <m>R_{T'}(v)=P(T)</m></p>
+
+
+<theorem><statement><p>If <m>T</m> has root <m>v</m> and has <m>m</m> subtrees with roots <m>v_1, v_2, \ldots  v_m</m>, then <men xml:id="eq-0">P(T)=(m+2)R_T(v)-\sum_{i=1}^m R_T\left(v_i\right).</men></p></statement>
+<proof>If we create a tree with root <m>w</m> having <m>T</m> as it's only subtree, the critical loading condition at  <m>w</m> occurs whenever <m>T</m> is critically loaded, in which case <m>w</m> can get sufficient chips without further firing. Therefore, we need to count how many chips, <m>v</m> needs. In order for <m>v</m> to fire, it needs to receive <m>m+2</m> chips each time, where <m>m+2</m> is the outdegree of <m>v</m> in the stochastic abacus.  The number that it needs,  <m>(m+2)R_T(v)</m>, does not all come from <m>w</m>, however.   This number is decreased by one every time any of the roots of the subtrees of <m>v</m> fire, which accounts for the sum that is subtracted in <xref ref="eq-0"/>. 
+</proof>
+</theorem>
+<p> The period of the tree depicted in the abacus in <xref ref="fig-abacus-random-tree" text="type-global"/> is <m>4\cdot 91 - (26 + 35) = 303</m>.</p>
+<p>The significance of the period of a tree is that  when several subtrees combine with a root, the restoration number of the new rooted tree is a function of the periods of its children.  </p>
+
+<theorem><statement><p>Let <m>T' = \text{RootedTree}\left(v;T_1, T_2, \ldots ,T_m\right)</m>, then 
+<men xml:id="eq-1">R_{T'}(v) = \text{lcm}\left(P\left(T_1\right),
+P\left(T_2\right), \ldots ,P\left(T_{m }\right)\right),</men> 
+and for each vertex <m>w</m> in <m>T_k</m>, <men xml:id="eq-2">R_{T'}(w)= \frac{R_{T'}(v)}{P\left(T_k\right)}R_{T_k}(w)</men>.</p></statement>
+<proof><p>As the stochastic abacus is running, each subtree <m>T_i</m> reaches its own critical loading condition after <m>P\left(T_i\right)</m> root firings. Therefore, critical loading of all subtrees is first reached after the least common multiple of their periods, <xref ref="eq-1"/>. For each of the subtrees, the number of chips deposited in a period is multiplied by the number of periods that the subtree goes through, which accounts for <xref ref="eq-2"/> </p></proof>
+</theorem>
+
+<p>This lets us determine the restoration function of any rooted tree from the bottom up. We illustrate the technique with the tree <m>\mathcal{T}</m> in <xref ref="fig-rooted-random"  text="type-global"/>.  Let <m>\epsilon\left(v_i\right)</m> be the trivial tree with a single vertex, <m>v_i</m>, its root.  We know that <m>R\left(\epsilon\left(v_i\right)\right)=1</m>, and <m>P\left(\epsilon \left(v_i\right)\right) = 2</m>, <m>i=1,2,3.</m> Therefore the level 2 tree with three trivial subtrees,
+<m>\tau_1=\text{RootedTree}\left(v;\epsilon \left(v_1\right),\epsilon \left(v_2\right),\epsilon \left(v_3\right)\right)</m> has restoration value <m>R\left(\tau_1\right)=2</m>. The period of <m>\tau_1</m> is <m>P\left(\tau_1\right)= (3+2)R(v_4)-3 R_{\tau_1}(\epsilon ) = 7</m>. On the right side of the tree, we have the subtree <m>\tau_2=\text{RootedTree}\left(v_7;\text{RootedTree}\left(v_6;\epsilon \left(v_5\right)\right)\right.</m>. We can determine
+the restoration function and period of this tree: <m>R_{\tau_2}\left(v_5\right)=1</m>, <m>R_{\tau_2}\left(v_6\right)=2</m>, <m>R_{\tau_2}\left(v_7\right)= 5</m>, and <m>P\left(\tau_2\right) = 13</m>.</p>
+
+ <p>Finally, we can compute the restoration function of <m>\mathcal{T}</m>: <me>R_{\mathcal{T}}\left(v_8\right)=\text{lcm}(7,13)=91.</me>  We complete the computation of <m>R_{\mathcal{T}}</m> by multiplying <m>R_{\tau_1}</m> by 13 and <m>R_{\tau_2}</m> by 7. The final result agrees with the actual implementation of the stochastic abacus that was displayed in <xref ref="fig-abacus-random-tree"  text="type-global"/>.</p>
+
+</section>
+<section xml:id="s-implementation"><title>Implementation of the Direct Calculation</title>
+<p>In order to implement the process described above, we use an array representation of rooted trees. We number the vertices in a tree with <m>n</m> vertices with the positive integers from <m>1</m> to <m>n</m>.  The structure of the tree is encapsulated in an array of <m>n</m> integers, <c>T</c>.</p>
+<p> In general, the entry <c>T[k]</c> contains the parent of vertex <c>k</c>.  The root of the tree has no parent and if <c>k</c> is the root, <c>T[k]=0</c>. If we number the vertices in <xref ref="fig-rooted-random"  text="type-global"/> by the subscripts of the vertex names, the tree would be represented by the array  <me>(4, 4, 4, 8, 6, 7, 8, 0).</me> </p>
+<p>The following Mathematica code will identify various parts of a rooted tree, assuming the structure we have described above.</p>
+<fragment xml:id="frag-parts-of-tree">
+<code>root[T_] := FirstPosition[T, 0] // First
+children[T_, k_] := Position[T, k] // Flatten
+leafQ[T_, j_] := Not[MemberQ[T, j]]
+descendants[T_, j_] := {} /; leafQ[T, j]
+descendants[T_, j_] := 
+ Join[children[T, j], 
+      Join @@ Map[descendants[T, #]&amp;, children[T, j]]] /; Not[leafQ[T, j]]
+</code>
+</fragment>
+<p>The following functions convert a tree in the form of undirected edges with designated root into the array  
+we use in our implementation.  
+</p>
+<fragment xml:id="frag-conversion">
+<code>
+treeArray[el_List, root_] := 
+ 	If[AcyclicGraphQ[Graph[el]] &amp;&amp; ConnectedGraphQ[Graph[el]], 
+ 		 maketreeArray[el, root], "error"]
+
+maketreeArray[el_List, root_] := 
+ Module[{ta, n}, n = Length[el] + 1; ta = Table[0, {n}]; 
+  Map[FindShortestPath[el, root, #]&amp;, Complement[Range[n], {root}]] //
+           Map[Partition[#, 2, 1]&amp;, #]&amp; // 
+           Flatten[#, 1]&amp; // 
+           Union //
+           Map[(ta[[#[[2]]]] = #[[1]])&amp;, #]&amp;; 
+	ta]
+</code>
+</fragment>
+<p>  
+This next function computes the restoration function of a tree in the form of a list of undirected edges
+with designated root. The expression <c>r[T,k,j]</c> represents the restoration function of the subtree within <c>T</c> rooted at <c>k</c> evaluated for the vertex <c>j</c>; and <c>p[T,k]</c> is the period of the subtree of <c>T</c> rooted at <c>k</c>.
+</p>
+
+<fragment xml:id="frag-abacus-calcs">
+<code>
+restoration[tree_, root_] := 
+ Module[{r, p, ta, n}, 
+ 	ta = treeArray[tree, root]; 
+  	n = Length[tree] + 1; r[T_, k_, k_] := 1 /; leafQ[T, k];
+  	p[T_, k_] := 2 /; leafQ[T, k];
+  	r[T_, k_, k_] := 
+   	LCM @@ Map[p[T, #]&amp;, children[T, k]] /; Not[leafQ[T, k]];
+  	p[T_, k_] := 
+        p[T, k] = (2 + Length[children[T, k]]) r[T, k, k] - 
+                     Total[Map[r[T, k, #]&amp;, children[T, k]]];
+  	r[T_, k_, j_] := 
+   	r[T, k, j] = 
+    		Module[{i}, 
+			i = (Select[children[T, k], 
+			MemberQ[Join[{#}, descendants[T, #]], j]&amp;]) // First; 
+			r[T, k, k] r[T, i, j]/p[T, i]]; 
+  	Map[{#, r[ta, root, #]}&amp;, Range[n]] ]
+</code>
+</fragment>
+<p>Here, we test the code with the example of <xref ref="fig-rooted-random"  text="type-global"/> and see that it is consistant with the output of the abacus seen in <xref ref="fig-abacus-random-tree"  text="type-global"/>.</p>
+<fragment xml:id="frag-test1">
+<code>
+test1 = {UndirectedEdge[8, 4], UndirectedEdge[8, 7], UndirectedEdge[4, 1],
+         UndirectedEdge[4, 2], UndirectedEdge[4, 3], UndirectedEdge[7, 6], 
+         UndirectedEdge[6, 5]};
+restoration[test1,8]
+
+{{1,13},{2,13},{3,13},{4,26},{5,7},{6,14},{7,35},{8,91}}
+</code>
+</fragment>
+<p>The tree in <xref ref="fig-larger-tree"/> is more complex, yet also not huge, but its restoration number is considerably larger than the previous example.</p>
+
+<fragment xml:id="frag-test2">
+<code>
+test2 =Map[UndirectedEdge@@#&amp;, 
+	{{26, 22}, {25, 24}, {25, 23}, {25, 22}, {22, 15}, {21, 17}, 
+ 	{20, 19}, {20, 18}, {20, 17}, {17, 16}, {16, 15}, {15, 1},  
+ 	{14, 10}, {13, 12}, {13, 11}, {13, 10}, {10, 3}, {9, 5}, {8, 7}, 
+ 	{8, 6}, {8, 5}, {5, 4}, {4, 3}, {3, 2}, {2, 1}}]
+restoration[test2,1]
+
+{{1, 27783522}, {2, 10297681}, {3, 3109521}, {4, 1158449}, {5, 365826}, 
+{6, 60971}, {7, 60971}, {8, 121942}, {9, 182913}, {10, 981954},
+{11, 163659}, {12, 163659}, {13, 327318}, {14, 490977}, {15, 8389602},
+{16, 3125538}, {17, 987012}, {18, 164502}, {19, 164502}, {20, 329004},
+{21, 493506}, {22, 2649348}, {23, 441558}, {24, 441558},
+{25, 883116}, {26, 1324674}}
+</code>
+</fragment>
+</section>
+<section><title>Extension to Some Non-trees</title>
+<p>
+Although we have outlined a procedure for implementing the abacus on rooted trees, these results can be extended to some non-trees using <term>inconsequential edges</term>, as introduced in Torrence <xref ref="biblio-torrence"/>. If there are two isomorphic subtrees of a vertex in the tree, an  edge can be added to connect corresponding vertices of the subtrees.  The restoration function of the new graph, which is not a tree, is equal to the restoration function of the tree, letting us compute probabilities for Pass the Buck on the new graph.  This follows from the fact that since the two subtrees are isomorphic, the abacus on each subtree is mirrored in the other subtree.  For every chip that moves in one direction along the added edge another chip moves in the other direction, so that the two movements offset one another.  Thus, the added edge is deemed inconsequential.	</p>
+<p>An example of a situation where several inconsequential edges can be added would be if we created the tree <m>\mathcal{T}'=\text{RootedTree}\left(r;\mathcal{T},\mathcal{T} \right)</m>, where <m>\mathcal{T}</m> is the rooted tree in <xref ref="fig-rooted-random"  text="type-global"/>.  Note that since <m>P(\mathcal{T})=303</m>, <m>R_{\mathcal{T}'}(r)=303</m>.  The restoration function <m>R_{\mathcal{T}'}</m>  is unchanged if we add an edge between the two copies of <m>v_k</m>, <m>4 \leq k \leq 8</m> or between any vertex in the set <m>\{v_1,v_2,v_3\}</m> of the first subtree with a vertex in the corresponding set in the other subtree.
+</p>
+</section>
+<backmatter>
+<references> <title>References</title>
+<biblio type="raw" xml:id="biblio-bjoner">Bj&#246;ner, A., Lovasz, L., Shor, P. (1991), <title>Chip-firing games on graphs</title>, <journal>Eur. J. Combin.</journal> <volume>12 (4) </volume>, 283<ndash />291, doi.org/10.1016/s0195-6698(13)80111-4.</biblio>
+
+<biblio type="raw" xml:id="biblio-engel">Engel, A (1976), <title>Why does the probabilistic abacus work?</title>, <journal>Educational Studies in Mathematics</journal> <volume>7 </volume>, 59<ndash />69.</biblio>
+
+<biblio type="raw" xml:id="biblio-levasseur">Levasseur, K., <title>Pass the Buck on a Rooted Tree</title>, <journal>Mathematics Magazine</journal>, 96:4 (2023), 446-454, DOI:
+10.1080/0025570X.2023.2231859.</biblio>
+
+<biblio type="raw" xml:id="biblio-propp">Propp, J. (2018), <title>Prof.  Engel’s  marvelously  improbable  machines</title>, <journal>Math Horizons</journal>, 26(2):  5–9. doi.org/10.1080/10724117.2018.1518840.</biblio>
+
+<biblio type="raw" xml:id="biblio-snell">Snell, J. Laurie, <title>The Engel algorithm for absorbing Markov chains</title>, Available at https://arxiv.org/abs/0904.1413v1 </biblio> 
+
+<biblio type="raw" xml:id="biblio-torrence-2">Torrence, B. and R. Torrence, <title>Fibonacci, Lucas, and a game of chance</title>, <journal>Mathematics Magazine</journal>, Dec. 2016, <volume>89</volume> <number>5</number>, 342<ndash />351.</biblio>
+
+<biblio type="raw" xml:id="biblio-torrence">Torrence, B., <title>Passing the Buck and Firing Fibonacci: Adventures with the Stochastic Abacus</title>, <journal>The American Mathematical Monthly</journal>, May 2019, <volume>126</volume> <number>5</number>, 387<ndash />399, doi.org/10.1080/00029890.2019.1577089.</biblio>
+
+</references>
+</backmatter>
+</article> 
+</pretext>
