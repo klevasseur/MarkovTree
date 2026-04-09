@@ -2,7 +2,7 @@
 <project ptx-version="2">
 <targets>
    <target 
-    	source="src/MarkovTree.xml"
+    	source="src"
     	name="screen" 
     	format="pdf" 
     	output-dir="screen" 
@@ -14,7 +14,7 @@
 		output-dir="web" 
 		publication="publication.ptx" />
     <target 
-    	source="src/MarkovTree.xml"
+    	source="src"
     	name="print" 
     	format="pdf" 
     	output-dir="print" 
