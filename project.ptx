@@ -2,7 +2,7 @@
 <project ptx-version="2"  source="src" >
 <targets>
    <target 
-    	source="src/MarkovTree.xml"
+    	source="MarkovTree.xml"
     	name="screen" 
     	format="pdf" 
     	output-dir="screen" 
