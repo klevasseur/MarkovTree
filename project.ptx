@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project ptx-version="2"  source="src" >
+<targets>
+   <target 
+    	name="screen" 
+    	format="pdf" 
+    	output-dir="screen" 
+    	publication="publication_screen.ptx"
+    	output-filename="markovtree-screen.pdf" />
+	<target 
+		name="web" 
+		format="html" 
+		output-dir="web" 
+		publication="publication.ptx" />
+    <target 
+    	name="print" 
+    	format="pdf" 
+    	output-dir="print" 
+    	publication="publication.ptx"
+    	output-filename="ps-print.pdf" />
+  <!-- 
+  <target 
+    	name="braille" 
+    	format="braille" 
+    	output-dir="braille" 
+    	publication="publication_braille.ptx" />
+   <target 
+    	name="im" 
+    	format="pdf" 
+    	output-dir="im" 
+    	publication="publication_im.ptx"
+    	output-filename="ps-im.pdf" />
+ -->
+<!-- 
+    <target name="rs" format="html" platform="runestone" />
+ -->
+</targets>
+</project>
