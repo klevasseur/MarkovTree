@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project ptx-version="2"  source="src" >
+<project ptx-version="2">
 <targets>
    <target 
-    	source="MarkovTree.xml"
+    	source="src/MarkovTree.xml"
     	name="screen" 
     	format="pdf" 
     	output-dir="screen" 
@@ -14,7 +14,7 @@
 		output-dir="web" 
 		publication="publication.ptx" />
     <target 
-    	source="MarkovTree.xml"
+    	source="src/MarkovTree.xml"
     	name="print" 
     	format="pdf" 
     	output-dir="print" 
