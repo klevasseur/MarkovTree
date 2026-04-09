@@ -14,7 +14,7 @@
 		output-dir="web" 
 		publication="publication.ptx" />
     <target 
-    	source="src/MarkovTree.xml"
+    	source="MarkovTree.xml"
     	name="print" 
     	format="pdf" 
     	output-dir="print" 
