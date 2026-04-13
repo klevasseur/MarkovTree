@@ -27,7 +27,7 @@
 </frontmatter>
 
 <introduction><title>Introduction</title>
-<p>In the 1970's, Engel <xref ref="biblio-engel"/> devised the Stochastic Abacus as a way to compute probabilities for certain discrete probability problems with minimal numerical computation.  More recently, Torrence <xref ref="biblio-torrence"/> used the same technique to determine winning probabilities for players in the game <q>Pass the Buck</q> for a variety of families of graphs.  The Stochastic Abacus has found more widespread exposure due to a recent article by Propp <xref ref="biblio-propp"/> in Math Horizons. In Levasseur <xref ref="biblio-levasseur"/> this game was analyzed on a tree, with a recursive construction that efficiently produced the winning probabilities. . In this note, we use similar logic to describe how a absorbing probabilities on a finite Markov chain with rational transition $probs can be derived with a generalization of the method used in <xref ref="biblio-levasseur"/>. One such example is play of a tennis game that has reached Deuce. <xref ref="fig-tennis-1"  text="type-global"/>. 
+<p>In the 1970's, Engel <xref ref="biblio-engel"/> devised the Stochastic Abacus as a way to compute probabilities for certain discrete probability problems with minimal numerical computation.   The Stochastic Abacus has found more widespread exposure due to a recent article by Propp <xref ref="biblio-propp"/> in Math Horizons. In Levasseur <xref ref="biblio-levasseur"/>  the game of <q>Pass the Buck</q> was analyzed on a tree, with a recursive construction that efficiently produced the winning probabilities. In this note, we use similar logic to describe how absorbing probabilities on a finite Markov chain with rational transition $probs can be derived with a generalization of the method used in <xref ref="biblio-levasseur"/>. One such example is play of a tennis game that has reached Deuce. 
 </p>
 
  <figure xml:id="fig-tennis-1">
@@ -41,9 +41,16 @@
 
  </introduction>
 
-<section xml:id="section-scope"> <title>Scope</title> 
-<p>XXXXXX</p>
- </section> 
+<section xml:id="section-scope"> <title>Scope and Notation</title> 
+<p>The class of Markov chains consider here are ones for which the transition graph is a tree, transition probabilities are all rational and two or more more of the states of the process are connected to absorbing states.  Given a starting state, we compute the absorbing probabilities for the process.</p>
+<p>For each state in the Markov chain under consideration, we assume that the probabilities are rational.  The sum of transition $probs out of that state add up to one. If they are all represented as fractions with a common denominator we construct an <q>abacus graph</q> with edges weighted by the numerators of these fractions.  The out-degree of the state will then be the denominator of the fractions.</p>
+<p>For each state <m>k</m>,  
+	<ul>
+	<li><p><m>t_{k,i}</m> is the edge weight of the edge <m>(k,i)</m>, and </p></li>
+ 	<li><p><m>a_k</m> is the edge weight of the edge connecting <m>k</m> to its absorbing state.</p></li>
+ 	</ul>
+ 	</p>
+</section> 
 
 <section xml:id="section-stochastic-abacus"> <title>The Stochastic Abacus</title>
 
@@ -94,7 +101,7 @@
 <p>We might wonder as to the likelihood that the server wins a game under these assumptions if the game has reached the Deuce state.  In a later chapter, we will introduce matrix methods for doing this computation. 
 </p>
 
- <figure xml:id="fig-tennis-1">
+ <figure xml:id="fig-tennis-2">
 		 <caption>Stochatic Abacus for Tennis at Deuce
 		 </caption>
 		 <image width="60%" source="images/fig-tennis-2.png">
