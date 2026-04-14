@@ -54,43 +54,42 @@
 
 <section xml:id="section-stochastic-abacus"> <title>The Stochastic Abacus</title>
 
-<p>Engle's Stochastic Abacus is a chip firing algorithm that, when complete, allows computation of absorbing probabilities in a Markov Chain. Chip firing algorithms take place on a directed graph with vertices that contain variable numbers of chips (or coins or M &amp; M's). The chips move around by the process of chip firing.  This can happen if a vertex contains enough chips to distribute along all of it's outgoing edges. What makes the algorithm work is that these firings mimic random events. In the case of pass the buck, if a vertex has enough chips for it's neighbor and itself, giving one to each neighbor and keeping one for itself captures all possible outcomes when the <q>buck</q> happens to be held by that vertex.  In the course of the whole stochatic abacus algorithm, the number of firings at any vertex is proportional to the number of times we expect that vertex to have an opportunity to win the game.  We will illustrate how the algorthm is set up and executed for the rooted tree in <xref ref="fig-binary-1"  text="type-global"/>.</p>
+<p>Engle's Stochastic Abacus is a chip firing algorithm that, when complete, allows computation of absorbing probabilities in a Markov Chain. Chip firing algorithms take place on a directed graph with vertices that contain variable numbers of chips (or coins or M &amp; M's). The chips move around by the process of chip firing.  This can happen if a vertex contains enough chips to distribute along all of it's outgoing edges according to their weights. What makes the algorithm work is that these firings mimic random events. If a vertex for a transition state has at least as many chips as its weighted out-degree, distributing them to each neighbor according to the edge weights captures all possible outcomes when the is in that state.  In the course of the whole stochatic abacus algorithm, the number of firings at any vertex/state is proportional to the number of times we expect that vertex/state to have have been visited before reaching an absorbing state.  </p>
 
-<p> A Markov chain is a type random process the passes in discrete time between a finite number of states.  What make the process a Markov chain is that at any time, the probabilities that the process is in a state in the next time only depends on the current state. As an example,suppose that a tennis game has reached a point where both players have won three points.   The game continues until one of the players is ahead by two points. There are five states in the process/game at this point. The terminology used in tennis for the states follows.  In any game, one of the players hits the ball first and is referred to as the server, and the other player is the receiver.  </p>
+<p> We will illustrate how the algorthm is set up and executed for a game of tennis.  When a tennis game has reached a point where both players have won three points, the game continues until one of the players is ahead by two points. There are five states in the process/game at this point. The terminology used in tennis for the states follows.  In any game, one of the players hits the ball first and is referred to as the server, and the other player is the receiver.  </p>
 <dl>
            <li>
              <title>Deuce</title>
              <p>
-               The state in which two players are tied with at least three points each.
+               The transient state in which two players are tied with at least three points each.
              </p>
            </li>
            <li>
              <title>Ad-In</title>
              <p>
-               The state where the server is ahead by one point, having won a point while the game is in Deuce.
+               The transient state where the server is ahead by one point, having won a point while the game is in Deuce.
              </p>
            </li>
            <li>
              <title>Ad-Out</title>
              <p>
-            The state where the receiver is ahead by one point, having won a point while the game is in Deuce.
+            The transient state where the receiver is ahead by one point, having won a point while the game is in Deuce.
              </p>
            </li>
            <li>
              <title>Hold</title>
              <p>
-               The state where the server is ahead by two points and the game is over.  
+               The absorbing state where the server is ahead by two points and the game is over.  
              </p>
            </li>
            <li>
              <title>Break</title>
              <p>
-               The state where the receiver is ahead by two points and the game is over.
+               The absorbing state where the receiver is ahead by two points and the game is over.
              </p>
            </li>
          </dl>
-<p>Many Markov chains, including this one, has one or more states that essentially stops movement and the process essentially ends.   These states are called <em>absorbing states</em>.   Hold and Break are absorbing states for the tennis example.</p>        
-<p>Strictly speaking, a real tennis game isn't a Markov chain because players' memories of previous points could affect their play, but the Markov chain assumption is a reasonable approximation of reality.  In what follows, we will assume that for any point, the probability that the server wins the point is 0.6.  We can visualize the process with a transition graph, where the labels on each edge indicate the probability of movement to the terminal vertex from the initial vertex of the edge.
+<p>Strictly speaking, a real tennis game isn't a Markov chain because players' memories of previous points could affect their play, but the Markov chain assumption is a reasonable approximation of reality.  In what follows, we will assume that for any point, the probability that the server wins the point is 2/3.  We can visualize the process with a transition graph, where the labels on each edge indicate the probability of movement to the terminal vertex from the initial vertex of the edge.
 </p>
 		<figure xml:id="fig-tennis">
 			 <caption>The transition graph for a tennis game that reaches Deuce.</caption>
@@ -98,7 +97,7 @@
 				  <description><p>A graph with five vertices, one for each possible state on a tennis game that has reached Deuce.</p></description>
 			 </image>
 		</figure>
-<p>We might wonder as to the likelihood that the server wins a game under these assumptions if the game has reached the Deuce state.  In a later chapter, we will introduce matrix methods for doing this computation. 
+<p>We might wonder as to the likelihood that the server wins a game under these assumptions if the game has reached the Deuce state.  
 </p>
 
  <figure xml:id="fig-tennis-2">
