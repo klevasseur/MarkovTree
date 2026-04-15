@@ -122,130 +122,116 @@
 </figure>
  -->
 
-<p>The remarkable fact is that after we have returned to the original critical loading of internal vertices, the probability that any vertex wins the game is equal to the number of chips in its corresponding absorbing vertex divided by the total number of chips in all absorbing vertices. The way to see why this is plausible is to consider that the process of firing chips at a vertex simultaneously  simulates all the possibilities in the game when the buck reaches that vertex. Moving a chip to the absorbing vertex captures the situation where that vertex keeps the buck, while the chips that move to adjacent internal vertices capture the situations where the buck is passed to those vertices. The number of times any vertex has an opportunity to fire is proportional to its probability of winning the buck. See Snell <xref ref="biblio-snell"/> for a complete proof. </p>
+<p>After we have returned to the original critical loading of internal vertices, the probability that the process ends in any particular absorbing state is equal to the number of chips in its  absorbing vertex divided by the total number of chips in all absorbing vertices. The way to see why this is plausible is to consider that the process of firing chips at a vertex simultaneously  simulates all the possibilities in the game weighted by the transition probabilities. Moving a chip to the absorbing vertex captures the situation where absorbtion takes place at that state, while the chips that move to adjacent transition states capture the situations where the process moves on that state.  See Snell <xref ref="biblio-snell"/> for a complete proof. </p>
 <p> Here is a step by step account of how the process plays out in our example, with the numbers in each vertex's column being the number of chips it holds. </p>
 
 <table>
-  <title>Steps in performing the stochatic abacus on a complete binary tree to level 1.</title>
+  <title>Steps in performing the stochatic abacus a tennis game at Deuce.</title>
   <tabular halign="center">
     <row header="yes" bottom="minor" >
       <cell>Step </cell>
       <cell>Comment</cell>
-      <cell><m>v_{\textrm{root}} </m></cell>
-      <cell><m>v_L</m></cell>
-      <cell><m>v_R</m></cell>
-      <cell><m>t_{\textrm{root}}</m></cell>
-      <cell><m>t_L</m></cell>
-      <cell><m>t_R</m></cell>
+      <cell>Ad-In</cell>
+      <cell>Deuce</cell>
+      <cell>Ad-Out</cell>
+      <cell>Hold</cell>
+      <cell>Break</cell>
     </row>
     <row>
       <cell>1</cell>
       <cell>Critically loaded</cell>
       <cell>2</cell>
-      <cell>1</cell>
-      <cell>1</cell>
-      <cell>0</cell>
+      <cell>2</cell>
+      <cell>2</cell>
       <cell>0</cell>
       <cell>0</cell>
     </row>
     <row>
       <cell>2</cell>
-      <cell>Add 1 chip to <m>v_{\textrm{root}}</m></cell>
+      <cell>Add 1 chip to Deuce</m></cell>
+      <cell>2</cell>
       <cell>3</cell>
-      <cell>1</cell>
-      <cell>1</cell>
-      <cell>0</cell>
+      <cell>2</cell>
       <cell>0</cell>
       <cell>0</cell>
     </row>
     <row>
       <cell>3</cell>
-      <cell><m>v_{\textrm{root}}</m> fires</cell>
+      <cell>Deuce fires</cell>
+      <cell>4</cell>
       <cell>0</cell>
-      <cell>2</cell>
-      <cell>2</cell>
-      <cell>1</cell>
+      <cell>3</cell>
       <cell>0</cell>
       <cell>0</cell>
     </row>
     <row>
-      <cell>4</cell>
-      <cell><m>v_L</m> fires</cell>
+      <cell>4a</cell>
+      <cell>Ad-In fires</cell>
       <cell>1</cell>
-      <cell>0</cell>
+      <cell>1</cell>
+      <cell>3</cell>
       <cell>2</cell>
-      <cell>1</cell>
-      <cell>1</cell>
       <cell>0</cell>
-    </row>
+   </row>
     <row>
-      <cell>4</cell>
-      <cell><m>v_L</m> fires</cell>
+      <cell>4b</cell>
+      <cell>Ad-Out fires</cell>
       <cell>1</cell>
+      <cell>3</cell>
       <cell>0</cell>
       <cell>2</cell>
       <cell>1</cell>
-      <cell>1</cell>
-      <cell>0</cell>
     </row>
     <row>
       <cell>5</cell>
-      <cell><m>v_R</m> fires</cell>
+      <cell>Deuce fires</cell>
+      <cell>3</cell>
+      <cell>0</cell>
+      <cell>1</cell>
       <cell>2</cell>
-      <cell>0</cell>
-      <cell>0</cell>
-      <cell>1</cell>
-      <cell>1</cell>
       <cell>1</cell>
     </row>
     <row>
       <cell>6</cell>
-      <cell>Add 1 chip to <m>v_{\textrm{root}}</m></cell>
-      <cell>3</cell>
-      <cell>0</cell>
+      <cell>Ad-In fires</cell>
       <cell>0</cell>
       <cell>1</cell>
-      <cell>1</cell>
+      <cell>0</cell>
+      <cell>4</cell>
       <cell>1</cell>
     </row>
     <row>
       <cell>7</cell>
-      <cell><m>v_{\textrm{root}}</m> fires</cell>
+      <cell>Add two chips to Deuce</cell>
       <cell>0</cell>
+      <cell>3</cell>
       <cell>1</cell>
-      <cell>1</cell>
-      <cell>2</cell>
-      <cell>1</cell>
+      <cell>4</cell>
       <cell>1</cell>
     </row>
     <row>
       <cell>8</cell>
-      <cell>Add 1 chip to <m>v_{\textrm{root}}</m></cell>
-      <cell>1</cell>
-      <cell>1</cell>
-      <cell>1</cell>
+      <cell>Deuce fires</cell>
       <cell>2</cell>
-      <cell>1</cell>
+      <cell>0</cell>
+      <cell>2</cell>
+      <cell>4</cell>
       <cell>1</cell>
     </row>
     <row>
       <cell>9</cell>
-      <cell>Add 1 chip to <m>v_{\textrm{root}}</m></cell>
+      <cell>Add two chips to Deuce</cell>
       <cell>2</cell>
       <cell>1</cell>
       <cell>1</cell>
       <cell>2</cell>
-      <cell>1</cell>
       <cell>1</cell>
     </row>
   </tabular>
 </table>
 
-<p>Notice that after step 8, the added chip at the root still doesn't allow for any firing.  The algorithm dictates that we test for critical loading, which is not met at this point.  However, adding yet another chip at the root in step 9 completes the algorithm.</p>
 
-
-
-<p>It may not be obvious, but if two vertices can fire, as before steps 4 and 5, it doesn't matter in what order they are fired. See  Bj&#246;ner <xref ref="biblio-bjoner"/> for a proof.  After step 9, the three internal vertices are back to being critically loaded, and the process ends.  We can now determine the win probabilities for each vertex. It is the number of chips in it's corresponding absorbing vertex divided by the total number of chips in all absorbing vertices.  For this example, the total number of chips in the absorbing vertices is 4 and the root has 2, so its probability of winning is <m>\frac{1}{2}</m>; and other two vertices each have winning probability <m>\frac{1}{4}</m>. </p>
+<p>It may not be obvious, but if two vertices can fire, as before steps 4a and 4b, it doesn't matter in what order they are fired. See  Bj&#246;ner <xref ref="biblio-bjoner"/> for a proof.  After step 9, the three transient vertices are back to being critically loaded, and the process ends.  We can now determine the win probabilities. XXXX It is the number of chips in it's corresponding absorbing vertex divided by the total number of chips in all absorbing vertices.  For this example, the total number of chips in the absorbing vertices is 4 and the root has 2, so its probability of winning is <m>\frac{1}{2}</m>; and other two vertices each have winning probability <m>\frac{1}{4}</m>. </p>
 
 
 <p>The final outcome of the abacus for the tree in<!--  <xref ref="fig-rooted-random"  text="type-global"/>  --> is shown in the augmented directed graph,<!--  <xref ref="fig-abacus-random-tree"  text="type-global"/> -->.  The gray circular vertices are the  internal vertices, with the top vertex being the root. These vertices are labeled with the number of chips that are initially loaded into each vertex to satisfy the critical loading condition.  The square white vertices are the absorbing vertices, one for each vertex in the tree.  A total of 212 chips were added to the abacus after its initial critical loading, at which point the critial loading levels have been reached once more. This means that the root, whose chip count in its absorbing vertex is 91, has win probability <m>\frac{91}{212}</m>.</p>
