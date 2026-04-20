@@ -27,7 +27,7 @@
 </frontmatter>
 
 <introduction><title>Introduction</title>
-<p>In the 1970's, Engel <xref ref="biblio-engel"/> devised the Stochastic Abacus as a way to compute probabilities for certain discrete probability problems with minimal numerical computation.   The Stochastic Abacus has found more widespread exposure due to a recent article by Propp <xref ref="biblio-propp"/> in Math Horizons. In Levasseur <xref ref="biblio-levasseur"/>  the game of <q>Pass the Buck</q> was analyzed on a tree, with a recursive construction that efficiently produced the winning probabilities. In this note, we use similar logic to describe how absorbing probabilities on a finite Markov chain with rational transition $probs can be derived with a generalization of the method used in <xref ref="biblio-levasseur"/>. One such example is play of a tennis game that has reached Deuce. 
+<p>In the 1970's, Engel <xref ref="biblio-engel"/> devised the Stochastic Abacus as a way to compute probabilities for certain discrete probability problems with minimal numerical computation.   The Stochastic Abacus has found more widespread exposure due to a recent article by Propp <xref ref="biblio-propp"/> in Math Horizons. In Levasseur <xref ref="biblio-levasseur"/>  the game of <q>Pass the Buck</q> was analyzed on a tree, with a recursive construction that efficiently produced the winning probabilities. In this note, we use similar logic to describe how absorbing probabilities on a finite Markov chain with rational transition $probs can be derived with a generalization of the method used in <xref ref="biblio-levasseur"/>. One such example is the playing of a tennis game that has reached Deuce. 
 </p>
 
  <figure xml:id="fig-tennis-1">
@@ -148,7 +148,7 @@
     </row>
     <row>
       <cell>2</cell>
-      <cell>Add 1 chip to Deuce</m></cell>
+      <cell>Add 1 chip to Deuce</cell>
       <cell>2</cell>
       <cell>3</cell>
       <cell>2</cell>
@@ -234,7 +234,7 @@
 <p>It may not be obvious, but if two vertices can fire, as before steps 4a and 4b, it doesn't matter in what order they are fired. See  Bj&#246;ner <xref ref="biblio-bjoner"/> for a proof.  After step 9, the three transient vertices are back to being critically loaded, and the process ends.  We can now determine the win probabilities. XXXX It is the number of chips in it's corresponding absorbing vertex divided by the total number of chips in all absorbing vertices.  For this example, the total number of chips in the absorbing vertices is 4 and the root has 2, so its probability of winning is <m>\frac{1}{2}</m>; and other two vertices each have winning probability <m>\frac{1}{4}</m>. </p>
 
 
-<p>The final outcome of the abacus for the tree in<!--  <xref ref="fig-rooted-random"  text="type-global"/>  --> is shown in the augmented directed graph,<!--  <xref ref="fig-abacus-random-tree"  text="type-global"/> -->.  The gray circular vertices are the  internal vertices, with the top vertex being the root. These vertices are labeled with the number of chips that are initially loaded into each vertex to satisfy the critical loading condition.  The square white vertices are the absorbing vertices, one for each vertex in the tree.  A total of 212 chips were added to the abacus after its initial critical loading, at which point the critial loading levels have been reached once more. This means that the root, whose chip count in its absorbing vertex is 91, has win probability <m>\frac{91}{212}</m>.</p>
+<p>The final outcome of the abacus for tennis in <!--  <xref ref="fig-rooted-random"  text="type-global"/>  --> is shown in the augmented directed graph,<!--  <xref ref="fig-abacus-random-tree"  text="type-global"/> -->.  The gray circular vertices are the  internal vertices, with the top vertex being the root. These vertices are labeled with the number of chips that are initially loaded into each vertex to satisfy the critical loading condition.  The square white vertices are the absorbing vertices.  A total of 212 chips were added to the abacus after its initial critical loading, at which point the critial loading levels have been reached once more. This means that the root, whose chip count in its absorbing vertex is 91, has win probability <m>\frac{91}{212}</m>.</p>
 
 <figure xml:id="fig-abacus-random-tree">
 		 <caption>Final outcome of the abacus on the random rooted tree
@@ -260,24 +260,41 @@
 
 <section xml:id="s-direct-computation">
 <title>Direct Computation of the Abacus</title> 
-<p>Next we describe how results can be computed much more easily. 
+<p>Next we describe how results can be computed much more easily. We will treat the transition graph of our Markov chain as a rooted tree, <m>T</m> with the initial state as the root. 
 The rooted tree with root <m>r</m> and subtrees <m>T_1</m>, <m>T_2</m>, ... <m>T_m</m> is denoted <m>\text{RootedTree}\left(r;T_1, T_2, \ldots ,T_m\right)</m>. </p>
 <definition><title>Restoration Number</title>
 <statement><p>The restoration number of a rooted tree is the number of times the root needs to fire to return the
 stochastic abacus to its critical loading position, denoted <m>R(T)</m>.</p></statement>
 </definition>
-<p>The restoration number is also the number of chips in the root's absorbing vertex upon return to critical loading.  The restoration number of the tree depicted in the abacus in <!-- <xref ref="fig-abacus-random-tree"  text="type-global"/> --> is 91.</p>
+<p>The restoration number times the absorbing weight of the initial vertex is the number of chips in the root's absorbing vertex upon return to critical loading. FIX The restoration number of the tree depicted in the abacus in <!-- <xref ref="fig-abacus-random-tree"  text="type-global"/> --> is 91.</p>
 <definition><title>Restoration Function</title>
 <statement><p>The restoration function of a rooted tree <m>T</m> is the function <m>R_T</m> on the vertex set of the tree
 such that <m>R_T(v)</m> is the number of chips in <m>v</m>'s absorbing vertex upon return to critical loading.</p></statement>
 </definition>
-<p>Note: The probability that vertex <m>v</m> wins Pass the Buck on a rooted tree <m>T</m> is <me>\frac{R_T(v)}{\sum _{w\in V_T} R_T(w)}.</me></p>
+<p>Note: The probability that Markov chain is ends in the absorbing vertex of  <m>v</m> is <me>\frac{R_T(v)}{\sum _{w\in V_T} R_T(w)}.</me></p>
 
 <definition><title>Period of a Rooted Tree</title>
-<statement><p>The Period of a rooted tree, <m>T</m>, is the restoration number of the rooted tree having <m>T</m> as it's only subtree. The period of a tree <m>T</m> is denoted <m>P(T)</m>. </p></statement></definition>
+<statement><p>The Period <m>P(a_0,t_{01},t_{10},T) of a rooted tree, <m>T</m>, with root <m>v_1</m> is the restoration number of the rooted tree rooted an additional vertex <m>v_0</m>  having absorbing weight <m>a_0</m> having <m>T</m> as it's only subtree and withweights <m>t_{01}</m> and <m>t_{10}</m> on the edges <m>(v_0,v_1)</m> and <m>(v_1,v_0)</m>, respectively. </p></statement></definition>
 
 <p>Note: If <m>T'= \text{RootedTree}(v;T)</m>, then <m>R_{T'}(v)=P(T)</m></p>
+<p>Starting with the absolute simplest case that we can consider, if a Markov process has a single state <m>v_1</m> with absorbing weight <m>a_1</m> then the restoration number of the tree is <m>f_1 = 1</m> and the number of chips added to the tree to reach critial loading is <m>M_1=a_1</m>.</p>
 
+<theorem><title>Period of a leaf</title><statement><p>If <m>v_1</m> is the root of a Markov chain with a single vertex having absorbing weight <m>a_1</m> then the period<men xml:id="eq-0">P(T)=(m+2)R_T(v)-\sum_{i=1}^m R_T\left(v_i\right).</men></p></statement>
+<proof>
+<figure xml:id="fig-period-of-leaf">
+		 <caption>Set-up for computing the period of a leaf
+		 </caption>
+		 <image width="60%" source="images/fig-period-of-leaf.png">
+			  <description>Set-up for computing the period of a leaf</description>
+		 </image>
+</figure>
+<p>Let <m>M</m></p>
+<p>
+<mn>M_0 +K t_{10} f_1 =f_0(a_0+t_{01})</mn>
+<mn>f_0 t_{01}= K f_1(t_{10}+a_1)</mn>
+</p>
+</proof>
+</theorem>
 
 <theorem><statement><p>If <m>T</m> has root <m>v</m> and has <m>m</m> subtrees with roots <m>v_1, v_2, \ldots  v_m</m>, then <men xml:id="eq-0">P(T)=(m+2)R_T(v)-\sum_{i=1}^m R_T\left(v_i\right).</men></p></statement>
 <proof>If we create a tree with root <m>w</m> having <m>T</m> as it's only subtree, the critical loading condition at  <m>w</m> occurs whenever <m>T</m> is critically loaded, in which case <m>w</m> can get sufficient chips without further firing. Therefore, we need to count how many chips, <m>v</m> needs. In order for <m>v</m> to fire, it needs to receive <m>m+2</m> chips each time, where <m>m+2</m> is the outdegree of <m>v</m> in the stochastic abacus.  The number that it needs,  <m>(m+2)R_T(v)</m>, does not all come from <m>w</m>, however.   This number is decreased by one every time any of the roots of the subtrees of <m>v</m> fire, which accounts for the sum that is subtracted in <xref ref="eq-0"/>. 
