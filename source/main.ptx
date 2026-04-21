@@ -111,16 +111,14 @@
 <p>The abacus for tennis at duece is constructed by first converting the graph on which it is played from an undirected graph to a directed graph, where each undirected edge is replace with a pair of directed edges, one in each direction. The vertices of the original graph are referred to as the  <q>internal vertices.</q>  Then we add <q>absorbing vertices</q> to the graph, one for each internal vertex, and an edge leading into each absorbing vertex from its corresponding internal vertex, as in <xref ref="fig-tennis-2"  text="type-global"/>. For this example we use the notation <m>v_x</m> for an internal vertex and <m>t_x</m> for its corresponding absorbing vertex.  The absorbing vertex attached to its internal vertex are so called because they capture (or absorb) chips in the process of chip firing that we discuss below. </p> 
 
 <p>Now that we have the graph for the abacus constructed, we distribute chips to each internal vertex.  These internal vertices, which correspond to the vertices of the original game graph, each get as many chips as one less than the outdegree of the vertex in the abacus. In <xref ref="fig-tennis-2"  text="type-global"/>, the number of chips each vertex is given is indicated inside the vertex.  Initially, the absorbing vertices get no chips.  The starting location of the <q>buck</q> in Pass the Buck  is the starting vertex of the algorithm. In all of our examples, the starting vertex is the root of the tree.  At this point in the algorithm,  we say that the system is <q>critically loaded.</q> The algorithm then consists of repeatedly adding a chip to the start vertex, <m>v_{\text{root}}</m>, and then repeatedly <q>firing</q> chips whenever the number of chips in an internal vertex is greater than or equal to the outdegree of that vertex. Firing at a vertex involves distributing a chip along each outgoing edge of the <q>loaded vertex</q> to neighboring vertices, including it's own absorbing vertex.   When no more firing can take place we examine the contents of the internal vertices.  If the chip counts in all internal vertices match the critical loading condition, we end the algorithm. Otherwise repeat the process, adding a single chip to the starting vertex.</p>
-<!-- 
  
-<figure xml:id="fig-abacus-1">
-		 <caption>The Stochastic Abacus for tennis at deuce. Vertices labeled <m>t_i</m>'s are internal vertices, absorbing vertices are <m>a_i</m>'s.
+<figure xml:id="fig-tennis-3">
+		 <caption>Final configuration of the Stochastic Abacus for a tennis game at deuce.
 		 </caption>
-		 <image width="60%" source="images/abacus-1.png">
-			  <description>caption>The Stochastic Abacus for tennis at deuce. Vertices labeled <m>t_i</m>'s are internal vertices, absorbing vertices are <m>a_i</m>'s. </description>
+		 <image width="60%" source="images/fig-tennis-3.png">
+			  <description>caption>Final configuration of the Stochastic Abacus for a tennis game at deuce. </description>
 		 </image>
 </figure>
- -->
 
 <p>After we have returned to the original critical loading of internal vertices, the probability that the process ends in any particular absorbing state is equal to the number of chips in its  absorbing vertex divided by the total number of chips in all absorbing vertices. The way to see why this is plausible is to consider that the process of firing chips at a vertex simultaneously  simulates all the possibilities in the game weighted by the transition probabilities. Moving a chip to the absorbing vertex captures the situation where absorbtion takes place at that state, while the chips that move to adjacent transition states capture the situations where the process moves on that state.  See Snell <xref ref="biblio-snell"/> for a complete proof. </p>
 <p> Here is a step by step account of how the process plays out in our example, with the numbers in each vertex's column being the number of chips it holds. </p>
@@ -234,7 +232,7 @@
 <p>It may not be obvious, but if two vertices can fire, as before steps 4a and 4b, it doesn't matter in what order they are fired. See  Bj&#246;ner <xref ref="biblio-bjoner"/> for a proof.  After step 9, the three transient vertices are back to being critically loaded, and the process ends.  We can now determine the win probabilities. XXXX It is the number of chips in it's corresponding absorbing vertex divided by the total number of chips in all absorbing vertices.  For this example, the total number of chips in the absorbing vertices is 4 and the root has 2, so its probability of winning is <m>\frac{1}{2}</m>; and other two vertices each have winning probability <m>\frac{1}{4}</m>. </p>
 
 
-<p>The final outcome of the abacus for tennis in <!--  <xref ref="fig-rooted-random"  text="type-global"/>  --> is shown in the augmented directed graph,<!--  <xref ref="fig-abacus-random-tree"  text="type-global"/> -->.  The gray circular vertices are the  internal vertices, with the top vertex being the root. These vertices are labeled with the number of chips that are initially loaded into each vertex to satisfy the critical loading condition.  The square white vertices are the absorbing vertices.  A total of 212 chips were added to the abacus after its initial critical loading, at which point the critial loading levels have been reached once more. This means that the root, whose chip count in its absorbing vertex is 91, has win probability <m>\frac{91}{212}</m>.</p>
+<p>The final outcome of the abacus for tennis in   <xref ref="fig-tennis-3"  text="type-global"/>  is shown in the augmented directed graph.  The gray circular vertices are the  internal vertices, with the top vertex being the root. These vertices are labeled with the number of chips that are initially loaded into each vertex to satisfy the critical loading condition.  The square white vertices are the absorbing vertices.  A total of 212 chips were added to the abacus after its initial critical loading, at which point the critial loading levels have been reached once more. This means that the root, whose chip count in its absorbing vertex is 91, has win probability <m>\frac{91}{212}</m>.</p>
 
 <figure xml:id="fig-abacus-random-tree">
 		 <caption>Final outcome of the abacus on the random rooted tree
@@ -274,13 +272,14 @@ such that <m>R_T(v)</m> is the number of chips in <m>v</m>'s absorbing vertex up
 <p>Note: The probability that Markov chain is ends in the absorbing vertex of  <m>v</m> is <me>\frac{R_T(v)}{\sum _{w\in V_T} R_T(w)}.</me></p>
 
 <definition><title>Period of a Rooted Tree</title>
-<statement><p>The Period <m>P(a_0,t_{01},t_{10},T) of a rooted tree, <m>T</m>, with root <m>v_1</m> is the restoration number of the rooted tree rooted an additional vertex <m>v_0</m>  having absorbing weight <m>a_0</m> having <m>T</m> as it's only subtree and withweights <m>t_{01}</m> and <m>t_{10}</m> on the edges <m>(v_0,v_1)</m> and <m>(v_1,v_0)</m>, respectively. </p></statement></definition>
+<statement><p>The Period <m>P(a_0,t_{01},t_{10},T)</m> of a rooted tree, <m>T</m>, with root <m>v_1</m> is the restoration number of the rooted tree rooted an additional vertex <m>v_0</m>  having absorbing weight <m>a_0</m>, having <m>T</m> as it's only subtree and with weights <m>t_{01}</m> and <m>t_{10}</m> on the edges <m>(v_0,v_1)</m> and <m>(v_1,v_0)</m>, respectively. </p></statement></definition>
 
 <p>Note: If <m>T'= \text{RootedTree}(v;T)</m>, then <m>R_{T'}(v)=P(T)</m></p>
 <p>Starting with the absolute simplest case that we can consider, if a Markov process has a single state <m>v_1</m> with absorbing weight <m>a_1</m> then the restoration number of the tree is <m>f_1 = 1</m> and the number of chips added to the tree to reach critial loading is <m>M_1=a_1</m>.</p>
 
 <theorem><title>Period of a leaf</title><statement><p>If <m>v_1</m> is the root of a Markov chain with a single vertex having absorbing weight <m>a_1</m> then the period<men xml:id="eq-0">P(T)=(m+2)R_T(v)-\sum_{i=1}^m R_T\left(v_i\right).</men></p></statement>
 <proof>
+<!-- 
 <figure xml:id="fig-period-of-leaf">
 		 <caption>Set-up for computing the period of a leaf
 		 </caption>
@@ -288,15 +287,18 @@ such that <m>R_T(v)</m> is the number of chips in <m>v</m>'s absorbing vertex up
 			  <description>Set-up for computing the period of a leaf</description>
 		 </image>
 </figure>
-<p>Let <m>M</m></p>
+ -->
+<p>Let <m>M_0</m> be the number of chips added to bring <m>RootedTree(v_0,v_1)</m> back to the critical loading state and <m>f_0</m> the number of times <m>v_0</m> needs to fire to do so. In addition, let <m>K</m> be the number of times <m>v_1</m> needs to fire the  <m>f_1=1</m> times needed for restoration. In order to balance the number of chips in the two vertices we have the following two equations.</p>
 <p>
-<mn>M_0 +K t_{10} f_1 =f_0(a_0+t_{01})</mn>
-<mn>f_0 t_{01}= K f_1(t_{10}+a_1)</mn>
+<men xml:id="leaf-1">M_0 +K t_{10} f_1 =f_0(a_0+t_{01})</men>
+<men xml:id="leaf-2">f_0 t_{01}= K f_1(t_{10}+a_1)</men>
+</p>
+<p>
 </p>
 </proof>
 </theorem>
 
-<theorem><statement><p>If <m>T</m> has root <m>v</m> and has <m>m</m> subtrees with roots <m>v_1, v_2, \ldots  v_m</m>, then <men xml:id="eq-0">P(T)=(m+2)R_T(v)-\sum_{i=1}^m R_T\left(v_i\right).</men></p></statement>
+<theorem><statement><p>If <m>T</m> has root <m>v</m> and has <m>m</m> subtrees with roots <m>v_1, v_2, \ldots  v_m</m>, then <men xml:id="eq-9">P(T)=(m+2)R_T(v)-\sum_{i=1}^m R_T\left(v_i\right).</men></p></statement>
 <proof>If we create a tree with root <m>w</m> having <m>T</m> as it's only subtree, the critical loading condition at  <m>w</m> occurs whenever <m>T</m> is critically loaded, in which case <m>w</m> can get sufficient chips without further firing. Therefore, we need to count how many chips, <m>v</m> needs. In order for <m>v</m> to fire, it needs to receive <m>m+2</m> chips each time, where <m>m+2</m> is the outdegree of <m>v</m> in the stochastic abacus.  The number that it needs,  <m>(m+2)R_T(v)</m>, does not all come from <m>w</m>, however.   This number is decreased by one every time any of the roots of the subtrees of <m>v</m> fire, which accounts for the sum that is subtracted in <xref ref="eq-0"/>. 
 </proof>
 </theorem>
