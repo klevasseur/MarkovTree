@@ -248,7 +248,10 @@
 </figure>
 
 
-<p>A tree of this size is just about on the border of the sizes for which the abacus can be reasonably completed manually. There are programs that can implement the abacus -  this is how the outcome above was actually computed - but they are limited. Relatively simple trees require thousands of steps with this approach. For example, the stochastic abacus deposits nearly 28 million chips into the absorbing vertex of the root of the tree in <xref ref="fig-larger-tree"/>. This number will be defined below as the restoration number of the rooted tree.</p>
+<p>As a true manipulative aide in computing probabilities, the Stochatic Abacus is limited to cases where the number of chips that are added is small. If the probabilities have larger denominators and/or the numerators are relatively prime, the number of chips becomes too large.  It's possible for the server's probablity of success when in Deuce to differ from the probability at AD-In or Ad-Out. If the probability of success at Deuce is <m>0.647 \approx \frac{11}{17}</m> and the probability of success at Ad-In or Ad-Out is <m>0.591 \approx \frac{17}{22}</m> then the Stochatic Abacus will tell us that <m>Pr(Hold)=\frac{143}{197} \approx 0.726</m>. However, a total of 197 chips would need to be added to the Abacus, which would try the patience of most.  In what follows, we propose develop a recursive procedure for deriving this quantities.  The key will be to identify how frequently each vertex need to fire.
+
+
+  This number will be defined below as the restoration number of the rooted tree.</p>
 
 <figure xml:id="fig-larger-tree">
 		 <caption>A slightly larger tree with high restoration number
