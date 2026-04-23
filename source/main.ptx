@@ -224,7 +224,7 @@
 </table>
 
 
-<p>It may not be obvious, but if two vertices can fire, as before steps 4a and 4b, it doesn't matter in what order they are fired. See  Bj&#246;ner <xref ref="biblio-bjoner"/> for a proof.  After step 9, the three transient vertices are back to being critically loaded, and the process ends.  We can now determine the win probabilities./p>
+<p>It may not be obvious, but if two vertices can fire, as before steps 4a and 4b, it doesn't matter in what order they are fired. See  Bj&#246;ner <xref ref="biblio-bjoner"/> for a proof.  After step 9, the three transient vertices are back to being critically loaded, and the process ends.  We can now determine the win probabilities.</p>
 
 <p>The final outcome of the abacus for tennis appears in  <xref ref="fig-tennis-3"  text="type-global"/>. A total of five chips were added to the abacus after its initial critical loading, at which point the critial loading levels have been reached once more. Since the absorbing vertex Hold contains four chips,  <m>Prob(Hold)=\frac{4}{5}</m>.</p>
 <figure xml:id="fig-tennis-3">
