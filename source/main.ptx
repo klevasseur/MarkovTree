@@ -272,12 +272,14 @@ The rooted tree with root <m>r</m> and subtrees <m>T_1</m>, <m>T_2</m>, ... <m>T
 <statement><p>The restoration number of a rooted tree is the number of times the root needs to fire to return the
 stochastic abacus to its critical loading position, denoted <m>R(T)</m>.</p></statement>
 </definition>
-<p>The restoration number times the absorbing weight of the initial vertex is the number of chips in the root's absorbing vertex upon return to critical loading. FIX The restoration number of the tree depicted in the abacus in <!-- <xref ref="fig-abacus-random-tree"  text="type-global"/> --> is 91.</p>
+<p> The restoration number of the tennis example is three.</p>
 <definition><title>Restoration Function</title>
-<statement><p>The restoration function of a rooted tree <m>T</m> is the function <m>R_T</m> on the vertex set of the tree
-such that <m>R_T(v)</m> is the number of chips in <m>v</m>'s absorbing vertex upon return to critical loading.</p></statement>
+<statement><p>The restoration function of a rooted tree <m>T</m> is the function <m>R_T</m> on the  set of transient vertices of the tree
+such that <m>R_T(v)</m> is the number of time that <m>v</m> fires in order for the whole tree to return the critical loading condition.</p></statement>
 </definition>
+<!-- 
 <p>Note: The probability that Markov chain is ends in the absorbing vertex of  <m>v</m> is <me>\frac{R_T(v)}{\sum _{w\in V_T} R_T(w)}.</me></p>
+ -->
 
 <definition><title>Period of a Rooted Tree</title>
 <statement><p>The Period <m>P(a_0,t_{01},t_{10},T)</m> of a rooted tree, <m>T</m>, with root <m>v_1</m> is the restoration number of the rooted tree rooted an additional vertex <m>v_0</m>  having absorbing weight <m>a_0</m>, having <m>T</m> as it's only subtree and with weights <m>t_{01}</m> and <m>t_{10}</m> on the edges <m>(v_0,v_1)</m> and <m>(v_1,v_0)</m>, respectively. </p></statement></definition>
@@ -285,7 +287,13 @@ such that <m>R_T(v)</m> is the number of chips in <m>v</m>'s absorbing vertex up
 <p>Note: If <m>T'= \text{RootedTree}(v;T)</m>, then <m>R_{T'}(v)=P(T)</m></p>
 <p>Starting with the absolute simplest case that we can consider, if a Markov process has a single state <m>v_1</m> with absorbing weight <m>a_1</m> then the restoration number of the tree is <m>f_1 = 1</m> and the number of chips added to the tree to reach critial loading is <m>M_1=a_1</m>.</p>
 
-<theorem><title>Period of a leaf</title><statement><p>If <m>v_1</m> is the root of a Markov chain with a single vertex having absorbing weight <m>a_1</m> then the period<men xml:id="eq-0">P(T)=(m+2)R_T(v)-\sum_{i=1}^m R_T\left(v_i\right).</men></p></statement>
+<theorem><title>Period of a leaf</title>
+<statement><p>If <m>v_1</m> is the root of a Markov chain with a single vertex having absorbing weight <m>a_1</m> then 
+ <men xml:id="eq-leaf-period"><m>P(a_0,t_{01},t_{10},v1)=\frac{t_{10} +a_1}{gcd(t_{10}+a_1, t_{01)}</m></men>
+ and the number of chips that are added to return the abacus to critical loading status is 
+ <men xml:id="eq-leaf-chips">M=\frac{a_0(t_{10}+a_1)+a_1 t_{01}}{gcd(t_{10}+a_1, t_{01)}</men>
+ 
+ </p></statement>
 <proof>
 <!-- 
 <figure xml:id="fig-period-of-leaf">
@@ -301,7 +309,13 @@ such that <m>R_T(v)</m> is the number of chips in <m>v</m>'s absorbing vertex up
 <men xml:id="leaf-1">M_0 +K t_{10} f_1 =f_0(a_0+t_{01})</men>
 <men xml:id="leaf-2">f_0 t_{01}= K f_1(t_{10}+a_1)</men>
 </p>
-<p>
+<p>If we solve <xref ref="leaf-2"/>For <m>f_0</m>, we get 
+<me>f_0=\frac{K(t_{10}+a_1)}{t_{01}}</me>
+and the least value of <m>K</m> that yields an integer produces 
+<me>f_0=\frac{t_{10}+a_1}{gcd(t_{10}+a_1),t_{01}}</me>
+</p>
+<p>Substitution into <xref ref="leaf-1"/> and solving for M_0 produces
+<me>M_0=a_0 f_0 + a_1 t_{01}</me>
 </p>
 </proof>
 </theorem>
